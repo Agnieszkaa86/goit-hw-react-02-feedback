@@ -4,29 +4,23 @@ import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
 import Statistics from './Statistics/Statistics';
 import Notification from './Notification/Notification';
 
-
-
 class App extends Component {
   state = {
     good: 0,
     neutral: 0,
     bad: 0,
   };
-  
-  onLeaveFeedback = (event) => {
+
+  onLeaveFeedback = event => {
     const { name } = event.target;
     this.setState({ [name]: this.state[name] + 1 });
-  }
-  countTotalFeedback = (state) => {
+  };
+  countTotalFeedback = state => {
     return Object.values(state).reduce((prev, el) => prev + el, 0);
-  }
-   countPositiveFeedbackPercentage = (good,total) => {
-     const positivePercentage = Math.round((good / total) * 100);
-     return (
-       isNaN(positivePercentage)
-         ? 0
-         : positivePercentage
-     )
+  };
+  countPositiveFeedbackPercentage = (good, total) => {
+    const positivePercentage = Math.round((good / total) * 100);
+    return isNaN(positivePercentage) ? 0 : positivePercentage;
   };
   render() {
     const { good, neutral, bad } = this.state;
@@ -35,24 +29,24 @@ class App extends Component {
     const options = Object.keys(this.state);
     return (
       <>
-      <Section title="Please leave feedback">
-        <FeedbackOptions
-          options={options}
-          onLeaveFeedback={this.onLeaveFeedback}
-        />
-          {(total === 0)
-            ? <Notification message= "There is no feedback"/>
-            : <Statistics
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={options}
+            onLeaveFeedback={this.onLeaveFeedback}
+          />
+          {total === 0 ? (
+            <Notification message="There is no feedback" />
+          ) : (
+            <Statistics
               good={good}
               neutral={neutral}
               bad={bad}
               total={total}
               positivePercentage={positive}
             />
-          } 
-      </Section>
+          )}
+        </Section>
       </>
-      
     );
   }
 }
