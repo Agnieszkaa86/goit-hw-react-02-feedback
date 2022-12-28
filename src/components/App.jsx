@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import Section from './Section/Section';
 import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
-import Statistics from './Statistics/Statisctics';
+import Statistics from './Statistics/Statistics';
 import Notification from './Notification/Notification';
 
 
@@ -28,11 +28,6 @@ class App extends Component {
          : positivePercentage
      )
   };
-  // formatValue = value => {
-  //   return `${Number(value).toFixed(0)}`;
-  // };
-  
-
   render() {
     const { good, neutral, bad } = this.state;
     const total = this.countTotalFeedback(this.state);
